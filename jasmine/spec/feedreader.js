@@ -21,6 +21,10 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
+         for(var i = 0; i < allFeeds.length; i++){
+           var feedUrl = allFeeds[i].url;
+           var feedName = allFeeds[i].name;
+         }
         it('are defined', function() {
 
             expect(allFeeds).toBeDefined();
@@ -36,10 +40,10 @@ $(function() {
          it('Url is defined', function(){
            for(var i = 0; i < allFeeds.length; i++){
              var feedUrl = allFeeds[i].url;
-             
+
              expect(feedUrl).toBeDefined();
              expect(feedUrl.length).not.toBe(0);
-             //console.log(feedUrl);
+             console.log(feedUrl);
            }
          });
         /* TODO: Write a test that loops through each feed
@@ -53,26 +57,47 @@ $(function() {
 
              expect(feedName).toBeDefined();
              expect(feedName.length).not.toBe(0);
-             //console.log(feedName);
+             console.log(feedName);
            }
-         })
+         });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
+      describe('The Menu', function(){
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+         it('Menu is hidden by default', function(){
+
+
+            expect($("body").hasClass('menu-hidden')).toBe(true);
+
+
+         })
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+          it('Changes visibility when menu is clicked', function(){
+            var $menuLink = $('.menu-icon-link');
+            //The 1st click triggers the menu to open.
+              $menuLink.trigger('click');
+              expect($("body").hasClass('menu-hidden')).toBe(false);
+            //The 2nd click closes the menu.
+              $menuLink.trigger('click');
+              expect($("body").hasClass('menu-hidden')).toBe(true);
 
+
+
+    });
+
+});
     /* TODO: Write a new test suite named "Initial Entries" */
 
         /* TODO: Write a test that ensures when the loadFeed
