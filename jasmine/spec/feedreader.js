@@ -73,9 +73,7 @@ $(function() {
          */
          it('Menu is hidden by default', function(){
 
-
             expect($("body").hasClass('menu-hidden')).toBe(true);
-
 
          })
 
@@ -85,20 +83,25 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
           it('Changes visibility when menu is clicked', function(){
-            var $menuLink = $('.menu-icon-link');
+            var menuLink = $('.menu-icon-link');
             //The 1st click triggers the menu to open.
-              $menuLink.trigger('click');
+              menuLink.trigger('click');
               expect($("body").hasClass('menu-hidden')).toBe(false);
             //The 2nd click closes the menu.
-              $menuLink.trigger('click');
+              menuLink.trigger('click');
               expect($("body").hasClass('menu-hidden')).toBe(true);
-
-
 
     });
 
 });
     /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function(){
+
+
+      beforeEach(function(done){
+
+        loadFeed(0, done);
+      });
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -106,11 +109,33 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+         it('makes sure theres an entry', function(){
+           var feedEnt = $('.feed .entry');
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+           expect(feedEnt.length).toBeGreaterThan(0);
+           //console.log(feedEnt)
+         });
+});
+    /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('News Feed Selection', function(){
+      var feed;
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        beforeEach(function(done){
+          loadFeed(1, done);
+          feed = $('.feed').html();
+        });
+
+
+    /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+     it('changes feed articles', function(done){
+        loadFeed(0);
+         expect($('.feed').html()).not.toEqual(feed)
+         done();
+      });
+});
+
 }());
